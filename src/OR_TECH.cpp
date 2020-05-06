@@ -37,23 +37,20 @@
 
 //------------- Define coordinations -----------//
 
-enum { TECH_BROWSE_X1 = ZOOM_X1+6,
-		 TECH_BROWSE_Y1 = ZOOM_Y1+6,
-		 TECH_BROWSE_X2 = ZOOM_X2-6,
-		 TECH_BROWSE_Y2 = TECH_BROWSE_Y1+220
-	  };
+#define TECH_BROWSE_X1 ZOOM_X1+6
+#define TECH_BROWSE_Y1 ZOOM_Y1+6
+#define TECH_BROWSE_X2 ZOOM_X2-6
+#define TECH_BROWSE_Y2 TECH_BROWSE_Y1+220
 
-enum { SCROLL_X1 = ZOOM_X1+6,
-		 SCROLL_Y1 = TECH_BROWSE_Y2+6,
-		 SCROLL_X2 = ZOOM_X2-6,
-		 SCROLL_Y2 = SCROLL_Y1+80
-	  };
+#define SCROLL_X1 ZOOM_X1+6
+#define SCROLL_Y1 TECH_BROWSE_Y2+6
+#define SCROLL_X2 ZOOM_X2-6
+#define SCROLL_Y2 SCROLL_Y1+80
 
-enum { GOD_BROWSE_X1 = ZOOM_X1+6,
-		 GOD_BROWSE_Y1 = SCROLL_Y2+6,
-		 GOD_BROWSE_X2 = ZOOM_X2-6,
-		 GOD_BROWSE_Y2 = ZOOM_Y2-6
-	  };
+#define GOD_BROWSE_X1 ZOOM_X1+6
+#define GOD_BROWSE_Y1 SCROLL_Y2+6
+#define GOD_BROWSE_X2 ZOOM_X2-6
+#define GOD_BROWSE_Y2 ZOOM_Y2-6
 
 //----------- Define static variables ----------//
 
@@ -98,11 +95,11 @@ void Info::disp_tech(int refreshFlag)
 	font_san.put( x+460, y   , "Tower of" );
 	font_san.put( x+468, y+13, "Science" );
 #elif(defined(FRENCH))
-	font_san.put( x+160, y   , "Catégorie" );
+	font_san.put( x+160, y   , "Catï¿½gorie" );
 	font_san.put( x+160, y+13, "Actuelle" );
 
-	font_san.put( x+230, y   , "Catégorie" );
-	font_san.put( x+230, y+13, "Recherchée" );
+	font_san.put( x+230, y   , "Catï¿½gorie" );
+	font_san.put( x+230, y+13, "Recherchï¿½e" );
 
 	font_san.put( x+320, y,    "Etat de la" );
 	font_san.put( x+320, y+13, "Recherche");

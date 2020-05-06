@@ -322,7 +322,7 @@ public:
 			  void detect_info_both();
 
 	virtual void put_info(int refreshFlag)		{;}
-	virtual int  detect_info()						{;}
+	virtual int  detect_info()						{ return 0;}
 			  void sort_worker();
 
 	 		  void process_animation();

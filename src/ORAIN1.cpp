@@ -24,6 +24,7 @@
 
 #include <ORAIN.h>
 #include <OVGABUF.h>
+#include <vga_ui.h>
 #include <COLOR.h>
 #include <OWORLDMT.h>
 

@@ -56,10 +56,12 @@ MouseCursor::MouseCursor()
 	frame_x1 = frame_y1 = frame_x2 = frame_y2 = 0;
 	frame_origin_x = frame_origin_y = 0;
 	frame_border_x1 = frame_border_y1 = frame_border_x2 = frame_border_y2 = 0;
-	memset(frame_top_save_scr, 0, VGA_WIDTH + 4);
-	memset(frame_bottom_save_scr, 0, VGA_WIDTH + 4);
-	memset(frame_left_save_scr, 0, VGA_HEIGHT + 4);
-	memset(frame_right_save_scr, 0, VGA_HEIGHT + 4);
+	
+	// Moved to init()
+	//memset(frame_top_save_scr, 0, VGA_WIDTH + 4);
+	//memset(frame_bottom_save_scr, 0, VGA_WIDTH + 4);
+	//memset(frame_left_save_scr, 0, VGA_HEIGHT + 4);
+	//memset(frame_right_save_scr, 0, VGA_HEIGHT + 4);
 	cursor_count = 0;
 	cursor_info_array = NULL;
 }
@@ -93,6 +95,12 @@ void MouseCursor::init()
 	load_cursor_info();
 
 	init_flag=1;
+
+	frame_top_save_scr = (char *)calloc(VGA_WIDTH + 4, sizeof(char) );
+	frame_bottom_save_scr = (char *)calloc(VGA_WIDTH + 4, sizeof(char) );
+	frame_left_save_scr = (char *)calloc(VGA_HEIGHT + 4, sizeof(char) );
+	frame_right_save_scr = (char *)calloc(VGA_HEIGHT + 4, sizeof(char) );
+
 }
 //----------- End of function MouseCursor::init ------//
 
@@ -128,6 +136,10 @@ void MouseCursor::deinit()
 		// ###### begin Gilbert 18/8 #####//
 		cur_icon = 0;
 		// ###### end Gilbert 18/8 #####//
+		free(frame_top_save_scr);
+		free(frame_bottom_save_scr);
+		free(frame_left_save_scr);
+		free(frame_right_save_scr);
 	}
 }
 //----------- End of function MouseCursor::deinit ------//

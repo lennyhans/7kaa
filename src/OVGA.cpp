@@ -23,6 +23,7 @@
 //Description : VGA management class (SDL version)
 
 #include <OVGA.h>
+#include <vga_ui.h>
 #include <OMOUSE.h>
 #include <OCOLTBL.h>
 #include <OSYS.h>

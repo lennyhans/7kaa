@@ -25,6 +25,7 @@
 #include	<math.h>
 #include <time.h>
 #include <OVGABUF.h>
+#include <vga_ui.h>
 #include <OMISC.h>
 #include <OLIGHTN.h>
 #include <OWORLDMT.h>
@@ -101,6 +102,11 @@ void Lightning::init(double fromX, double fromY, double toX, double toY,
 	wide = PI / 4;
 	seed = (unsigned)(fromX + fromY + toX + toY) | 1;
 	(void) rand_seed();
+
+	bound_x1 = ZOOM_X1 +4;
+	bound_y1 = ZOOM_Y1 -4;
+	bound_x2 = ZOOM_X2 -4;
+	bound_y2 = ZOOM_Y2 -4;
 }
 //-------- End of function Lightning::init ----------//
 

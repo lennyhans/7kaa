@@ -87,6 +87,8 @@ public:
 
 	int			vga_window_width;
 	int			vga_window_height;
+	// Allow to change the UI configuration
+	int 		vga_display_mode;
 
 public:
 	ConfigAdv();

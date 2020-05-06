@@ -25,6 +25,7 @@
 
 #include <OSNOWRES.h>
 #include <OVGABUF.h>
+#include <vga_ui.h>
 #include <OGAMESET.h>
 #include <OWORLD.h>
 #include <ALL.h>

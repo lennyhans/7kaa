@@ -35,22 +35,7 @@
 enum { INFO_REPAINT=10, INFO_UPDATE, INFO_SPECIAL };
 
 //--------- Define section positions ---------//
-
-#define TOP_MENU_X1	 4
-#define TOP_MENU_Y1   4
-#define TOP_MENU_X2   (ZOOM_X2-4)
-#define TOP_MENU_Y2	 30
-
-#define INFO_X1 	586
-#define INFO_Y1   265
-#define INFO_X2   790
-#define INFO_Y2	589
-
-#define MSG_X1		INFO_X1
-#define MSG_Y1 	(INFO_Y2-29)
-#define MSG_X2		INFO_X2
-#define MSG_Y2		INFO_Y2
-
+// 	see vga_ui
 //------- Nation report  detail display mode -------//
 
 enum { MAX_NATION_REPORT_MODE = 5 };

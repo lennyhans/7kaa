@@ -191,4 +191,5 @@ noinst_HEADERS = \
 	storage_constants.h \
 	version.h \
 	vga_util.h \
+	vga_ui.h \
 	wav_stream.h

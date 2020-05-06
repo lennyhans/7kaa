@@ -62,10 +62,7 @@ World::World()
 	plant_count = 0;
 	plant_limit = 0;
 
-   //------- initialize matrix objects -------//
-
-   map_matrix  = new MapMatrix;
-   zoom_matrix = new ZoomMatrix;
+   
 }
 //------------- End of function World::World -----------//
 
@@ -95,6 +92,10 @@ World::~World()
 
 void World::init()
 {
+	//------- initialize matrix objects -------//
+
+   map_matrix  = new MapMatrix;
+   zoom_matrix = new ZoomMatrix;
 	//----------- initialize vars -------------//
 
 	scan_fire_x = 0;

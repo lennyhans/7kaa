@@ -281,6 +281,11 @@ ZoomMatrix::ZoomMatrix() : land_disp_sort_array(sizeof(DisplaySort),100),
 	init( ZOOM_X1, ZOOM_Y1, ZOOM_X2, ZOOM_Y2,
 			ZOOM_WIDTH, ZOOM_HEIGHT,
 			ZOOM_LOC_WIDTH, ZOOM_LOC_HEIGHT, 0 );		// 0-don't create a background buffer
+	// Read updated MACROS
+	Lightning::bound_x1 = ZOOM_X1 + 4;
+	Lightning::bound_x2 = ZOOM_X2 - 4;
+	Lightning::bound_y1 = ZOOM_Y1 - 4;
+	Lightning::bound_y2 = ZOOM_Y2 - 4;
 }
 //---------- End of function ZoomMatrix::ZoomMatrix ----------//
 
@@ -651,11 +656,11 @@ void ZoomMatrix::draw_weather_effects()
 				RelVolume r(config.lightning_volume,0);
 				audio.play_long_wav(DIR_SOUND"THUNDER.WAV", DsVolume(r));
 			}
-
+			
 			// find the starting and ending point of the lightning
 			lightning_x1 = Lightning::bound_x1 + 20 + short(mRandom % (Lightning::bound_x2-Lightning::bound_x1 - 40));
 			lightning_y1 = Lightning::bound_y1 - 50;
-			lightning_x2 = Lightning::bound_x1 + 10 + short(mRandom % (Lightning::bound_x2-Lightning::bound_x1 - 20));
+			lightning_x2 = Lightning::bound_x1 + 10 + short(mRandom % (ZOOM_X2 - ZOOM_X1 - 20));
 			lightning_y2 = (Lightning::bound_y1+Lightning::bound_y2) / 2 +
 				short(mRandom % ( (Lightning::bound_y2-Lightning::bound_y1) / 2));
 			init_lightning = 1;

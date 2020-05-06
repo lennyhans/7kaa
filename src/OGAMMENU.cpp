@@ -52,18 +52,18 @@
 enum { GAME_MENU_WIDTH  = 350,
 		 GAME_MENU_HEIGHT = 386  };
 
-enum { GAME_MENU_X1 = ZOOM_X1 + ( (ZOOM_X2-ZOOM_X1+1) - GAME_MENU_WIDTH ) / 2,
-		 GAME_MENU_Y1 = ZOOM_Y1 + ( (ZOOM_Y2-ZOOM_Y1+1) - GAME_MENU_HEIGHT ) / 2 };
+#define GAME_MENU_X1  ZOOM_X1 + ( (ZOOM_X2-ZOOM_X1+1) - GAME_MENU_WIDTH ) / 2
+#define GAME_MENU_Y1  ZOOM_Y1 + ( (ZOOM_Y2-ZOOM_Y1+1) - GAME_MENU_HEIGHT ) / 2 
 
-enum { GAME_OPTION_WIDTH  = 170,
-		 GAME_OPTION_HEIGHT = 34   };
+#define GAME_OPTION_WIDTH  170
+#define GAME_OPTION_HEIGHT 34
 
 // ####### begin Gilbert 29/10 #########//
-enum { GAME_OPTION_X1 = GAME_MENU_X1+90,
-		 GAME_OPTION_Y1 = GAME_MENU_Y1+76  };
+#define GAME_OPTION_X1 GAME_MENU_X1+90
+#define GAME_OPTION_Y1 GAME_MENU_Y1+76
 
-enum { MAP_ID_X1 = GAME_MENU_X1 + 18, 
-		 MAP_ID_Y1 = GAME_MENU_Y1 + 352 };
+#define MAP_ID_X1 GAME_MENU_X1 + 18
+#define MAP_ID_Y1 GAME_MENU_Y1 + 352
 // ####### end Gilbert 29/10 #########//
 
 enum { GAME_OPTION_COUNT = 8 };

@@ -27,13 +27,15 @@
 
 #include <OVGABUF.h>
 #include <COLOR.h>
+#include <vga_ui.h>
 #include <SDL.h>
 
 //----------- define constants ----------//
-
+/*
 #define VGA_WIDTH             800
 #define VGA_HEIGHT            600
 #define VGA_BPP                 8
+*/
 #define VGA_PALETTE_SIZE      256
 
 #define MAX_BRIGHTNESS_ADJUST_DEGREE 10

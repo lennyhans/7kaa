@@ -28,6 +28,7 @@
 #include <OMISC.h>
 #include <OWORLD.h>
 #include <OVGABUF.h>
+#include <vga_ui.h>
 #include <OTERRAIN.h>
 #include <OCONFIG.h>
 #include <string.h>

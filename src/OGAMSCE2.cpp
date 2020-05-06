@@ -52,10 +52,10 @@ static void disp_scroll_bar_func(SlideVBar *scroll, int);
 enum CHECKBOX_STATE { UNCHECKED = 0, PART_CHECKED = 1, CHECKED = 2 };
 static void draw_checkbox(int x, int y, CHECKBOX_STATE checked);
 
-enum { TUTOR_MENU_X1 = 0,
-		 TUTOR_MENU_Y1 = 0,
-		 TUTOR_MENU_WIDTH = VGA_WIDTH,
-		 TUTOR_MENU_HEIGHT = VGA_HEIGHT };
+#define TUTOR_MENU_X1 0
+#define TUTOR_MENU_Y1 0
+#define TUTOR_MENU_WIDTH VGA_WIDTH
+#define TUTOR_MENU_HEIGHT VGA_HEIGHT 
 
 enum { SCROLL_X1 = 757,
 		 SCROLL_Y1 = 352,

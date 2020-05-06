@@ -23,6 +23,7 @@
 
 #include <OINFO.h>
 #include <OVGA.h>
+#include <vga_ui.h>
 #include <OHELP.h>
 #include <OFONT.h>
 #include <OSYS.h>

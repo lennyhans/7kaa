@@ -69,6 +69,7 @@
 #include <OTOWN.h>
 #include <OTownNetwork.h>
 #include <OUNIT.h>
+#include <vga_ui.h>
 #include <OVGA.h>
 #include <vga_util.h>
 #ifdef ENABLE_INTRO_VIDEO
@@ -129,6 +130,7 @@ Mouse             mouse;
 MouseCursor       mouse_cursor;
 Misc              misc, misc2;
 DateInfo          date;
+VgaUI			  current_display_mode;
 Vga               vga;
 VgaUtil           vga_util;
 VgaBuf            vga_front, vga_back, vga_true_front;
@@ -311,6 +313,8 @@ int main(int argc, char **argv)
 		config.init();
 	}
 	config_adv.init();
+	VgaUI::set_current_display_mode(config_adv.vga_display_mode);
+
 	if( config_adv.locale[0] )
 		locale_res.load();
 

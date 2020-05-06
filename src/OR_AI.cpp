@@ -31,26 +31,6 @@
 #include <OINFO.h>
 #include "gettext.h"
 
-//------------- Define coordinations -----------//
-
-enum { ACTION_BROWSE_X1 = ZOOM_X1+6,
-		 ACTION_BROWSE_Y1 = ZOOM_Y1+6,
-		 ACTION_BROWSE_X2 = ZOOM_X2-6,
-		 ACTION_BROWSE_Y2 = ACTION_BROWSE_Y1+200
-	  };
-
-enum { ATTACK_BROWSE_X1 = ZOOM_X1+6,
-		 ATTACK_BROWSE_Y1 = ACTION_BROWSE_Y2+6,
-		 ATTACK_BROWSE_X2 = ZOOM_X2-6,
-		 ATTACK_BROWSE_Y2 = ATTACK_BROWSE_Y1+160
-	  };
-
-enum { OTHER_INFO_X1 = ZOOM_X1+6,
-		 OTHER_INFO_Y1 = ATTACK_BROWSE_Y2+6,
-		 OTHER_INFO_X2 = ZOOM_X2-6,
-		 OTHER_INFO_Y2 = ZOOM_Y2-6,
-	  };
-
 //----------- Define action mode string --------//
 
 static const char* action_mode_str_array[] =
