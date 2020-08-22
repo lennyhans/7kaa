@@ -50,6 +50,13 @@ TEST_CASE("Test FilePath structure") {
 			CHECK(target.error_flag == OK);
 		}
 		
+		SUBCASE("With two values"){
+			target += expected_value;
+			target += expected_value;
+			CHECK(strlen(target.str_buf) == strlen(expected_value) + strlen(expected_value));
+			CHECK(target.error_flag == OK);
+		}
+		
 		SUBCASE("With emtpy"){
 			const char* empty = "";
 			target += empty;
@@ -78,16 +85,54 @@ TEST_CASE("Test FilePath structure") {
 			CHECK( strlen(target.str_buf) == pre_add_length);
 			// Should clean error after another 'OK' usage?
 			target += expected_value;
-			CHECK(target.error_flag == OK);
 			CHECK( strlen(target.str_buf) == strlen(expected_value));
+			CHECK_MESSAGE(target.error_flag == OK, "The last add works (aparently), so why the error?");
 		}
 	}
 	
 	SUBCASE("Check assign function"){
-		target = expected_value;
-		CHECK(strlen(expected_value) == strlen(target.str_buf));
-		CHECK(target.error_flag == OK);
+		SUBCASE("With value"){
+			target = expected_value;
+			CHECK(strlen(target.str_buf) == strlen(expected_value));
+			//CHECK(target.str_buf == expected_value);
+			CHECK(target.error_flag == OK);
+		}
+		
+		SUBCASE("With emtpy"){
+			const char* empty = "";
+			target = empty;
+			CHECK(strlen(target.str_buf) == 0 );
+			CHECK(target.error_flag == OK);
+		}
+		
+		SUBCASE("With null variable"){
+			const char* null_pointer;
+			target = null_pointer;
+			CHECK( strlen(target.str_buf) == 0 );
+			CHECK(target.error_flag == OK);
+		}
+		
+		
+		SUBCASE("With overflow value"){
+			int pre_add_length = strlen(target.str_buf);
+			target = overflow_value;
+			REQUIRE(target.error_flag == ERROR);
+			CHECK( strlen(target.str_buf) == pre_add_length);
+		}
+		
+		SUBCASE("With overflow value and then OK"){
+			int pre_add_length = strlen(target.str_buf);
+			target = overflow_value;
+			REQUIRE(target.error_flag == ERROR);
+			CHECK( strlen(target.str_buf) == pre_add_length);
+			// Should clean error after another 'OK' usage?
+			target = expected_value;
+			CHECK( strlen(target.str_buf) != pre_add_length);
+			CHECK( strlen(target.str_buf) == strlen(expected_value));
+			CHECK_MESSAGE(target.error_flag == OK, "The recently assign aparently works");
+		}
 	}
 	
-	free(overflow_value);
+	if(overflow_value != NULL)
+		free(overflow_value);
 }
