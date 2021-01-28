@@ -33,13 +33,13 @@ Building the game
 This is a WIP meson build for 7kaa, most of the options on autoconf do not work yet
 
 Required dependencies
+* Autoconf or Meson
 * GCC 4.6+ (C++11 compliant compiler)
 * SDL 2.0.8 (http://libsdl.org/)
 * enet 1.3.xx (http://enet.bespin.org/)
 * OpenAL-soft or equivalent driver (http://kcat.strangesoft.net/openal.html)
 
-Optional dependencies
-* Meson 
+Optional dependencies 
 * libcurl for full 7kfans multiplayer integration (website requires TLS1.2)
 * gettext 0.19
 * Game music: 7kaa-music-2.15
