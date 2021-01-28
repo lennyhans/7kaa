@@ -564,7 +564,7 @@ void Game::multi_player_game(int lobbied, char *game_host)
 	{
 		mp_obj.init(TCPIP);
 #ifdef HAVE_LIBCURL
-		ws.init();
+		ws.init(sys.dir_config);
 #endif
 	}
 
@@ -823,7 +823,7 @@ void Game::load_mp_game(char *fileName, int lobbied, char *game_host)
 	{
 		mp_obj.init(TCPIP);
 #ifdef HAVE_LIBCURL
-		ws.init();
+		ws.init(sys.dir_config);
 #endif
 	}
 

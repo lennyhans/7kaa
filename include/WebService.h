@@ -40,7 +40,7 @@ public:
 	WebService();
 	~WebService();
 
-	void init();
+	void init(const char *dir_config);
 	void deinit();
 	int refresh(char *user);
 	int login(char *user, char *pass);

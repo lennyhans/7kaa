@@ -21,7 +21,8 @@
 // Filename    : WebService.cpp
 // Description : A curl implementation to access web services
 
-#include <OSYS.h>
+// Remove unnecesary OSYS Dependency
+//#include <OSYS.h>
 #include <WebService.h>
 #include <FilePath.h>
 
@@ -41,7 +42,7 @@ WebService::~WebService()
 	deinit();
 }
 
-void WebService::init()
+void WebService::init(const char *dir_config)
 {
 	if( init_flag )
 		return;
@@ -51,7 +52,7 @@ void WebService::init()
 	if( !curl )
 		return;
 
-	FilePath cookie_file(sys.dir_config);
+	FilePath cookie_file(dir_config);
 	cookie_file += "cookies.txt";
 	if( !cookie_file.error_flag )
 		curl_easy_setopt(curl, CURLOPT_COOKIEJAR, (char*)cookie_file);
