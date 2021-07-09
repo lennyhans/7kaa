@@ -1738,7 +1738,7 @@ int Game::input_name_pass(const char *txt[], char *name, int name_len, char *pas
 #ifdef HAVE_LIBCURL
 const char *login_failed_msg = N_("Unable to connect to the 7kfans.com service. Verify your account information and try again.");
 #else
-const char *login_failed_msg = N_("Unable to connect to the 7kfans service. See 7kfans.com/wiki on how to log in.\n(No libcurl)");
+const char *login_failed_msg = N_("Unable to connect to the 7kfans service.\n(No libcurl)");
 #endif
 
 
@@ -2412,9 +2412,6 @@ int Game::mp_select_option(NewNationPara *nationPara, int *mpPlayerCount)
 	else
 	{
 		SessionDesc *current_session;
-
-		tempConfig.race_id = 0;
-		tempConfig.player_nation_color = 0;
 
 		current_session = mp_obj.get_current_session();
 
