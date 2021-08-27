@@ -1,4 +1,4 @@
-SUBDIRS = enet imgfun openal
+SUBDIRS = enet imgfun openal ui
 if USE_CURL
 SUBDIRS += curl
 endif
@@ -288,7 +288,7 @@ bin_PROGRAMS = 7kaa
 	session_desc.cpp \
 	player_desc.cpp \
 	vgautil.cpp \
-	vgautil2.cpp
+	vgautil2.cpp 
 
 AM_CPPFLAGS = \
 	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\" \

@@ -1,3 +1,5 @@
+SUBDIRS = ui
+
 noinst_HEADERS = \
 	ALL.h \
 	COLCODE.h \
@@ -191,4 +193,4 @@ noinst_HEADERS = \
 	storage_constants.h \
 	version.h \
 	vga_util.h \
-	wav_stream.h
+	wav_stream.h 

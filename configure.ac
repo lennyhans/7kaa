@@ -348,6 +348,7 @@ AC_CONFIG_FILES([
   Makefile
   data/Makefile
   include/Makefile
+  include/ui/Makefile
   src/Makefile
   src/curl/Makefile
   src/enet/Makefile
@@ -355,6 +356,7 @@ AC_CONFIG_FILES([
   src/imgfun/generic/Makefile
   src/imgfun/x86/Makefile
   src/openal/Makefile
+  src/ui/Makefile
   po/Makefile.in
 ])
 
