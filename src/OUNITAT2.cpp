@@ -33,6 +33,7 @@
 #include <OF_CAMP.h>
 #include <OEFFECT.h>
 #include <OU_CART.h>
+#include <ConfigAdv.h>
 
 #ifdef NO_DEBUG_UNIT
 #undef err_when
@@ -655,9 +656,12 @@ void Unit::target_move(Unit* targetUnit)
 				err_when(range_attack_x_loc==-1 || range_attack_y_loc==-1);
 
 				set_attack_dir(curXLoc, curYLoc, range_attack_x_loc, range_attack_y_loc);
-				cycle_eqv_attack();
-				attackInfo = attack_info_array + cur_attack;	// cur_attack may change
-				cur_frame  = 1;
+				if( config_adv.unit_target_move_range_cycle )
+				{
+					cycle_eqv_attack();
+					attackInfo = attack_info_array + cur_attack;	// cur_attack may change
+					cur_frame  = 1;
+				}
 
 				if(is_dir_correct())
 					set_attack();
@@ -679,6 +683,7 @@ void Unit::target_move(Unit* targetUnit)
 					//range_attack_x_loc = range_attack_y_loc = -1;
 					err_when(action_mode!=ACTION_ATTACK_UNIT);
 					err_when(action_para!=targetUnit->sprite_recno);
+					choose_best_attack_mode(attackDistance, targetUnit->mobile_type);
 				}
 			}
 		}

@@ -44,9 +44,6 @@ public:
 	uint32_t		checksum;
 	uint32_t		flags;
 
-	// internal settings
-	char			big_dynarray_mode;
-
 	// locale settings
 	char			locale[LOCALE_LEN+1];
 
@@ -77,6 +74,8 @@ public:
 
 	// unit settings
 	char			unit_loyalty_require_local_leader;
+	char			unit_spy_fixed_target_loyalty;
+	char			unit_target_move_range_cycle;
 
 	// vga settings
 	char			vga_allow_highdpi;

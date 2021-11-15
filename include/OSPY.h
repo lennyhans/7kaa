@@ -123,6 +123,18 @@ public:
 
 	//------- AI functions -------//
 
+	void	process_ai();
+	void	think_town_spy();
+	void	think_firm_spy();
+	int 	think_mobile_spy();
+
+	int 	think_bribe();
+	int 	think_assassinate();
+	int	think_reward();
+
+	int 	think_mobile_spy_new_action();
+	int 	add_assign_spy_action(int destXLoc, int destYLoc, int cloakedNationRecno);
+
 	int 	ai_spy_being_attacked(int attackerUnitRecno);
 
 	// #### patch begin Gilbert 20/1 ######//
@@ -177,50 +189,19 @@ public:
 	#ifdef DYNARRAY_DEBUG_ELEMENT_ACCESS
 		Spy* operator[](int recNo);
 	#else
-		Spy* operator[](int recNo)	  { return (Spy*) get(recNo); }
+		Spy* operator[](int recNo)	  { return (Spy*) get_ptr(recNo); }
 	#endif
 
-	int     is_deleted(int recNo)   { return ((Spy*)get(recNo))->spy_recno==0; }
+	int     is_deleted(int recNo);
 };
 
+inline int SpyArray::is_deleted(int recNo)
+{
+	Spy* spyPtr = (Spy*) get_ptr(recNo);
+	return !spyPtr || !spyPtr->spy_recno;
+}
 
 extern SpyArray spy_array;
-
-class SpyArrayLock
-{
-public:
-	SpyArrayLock() { spy_array.lock_body(); }
-	~SpyArrayLock() { spy_array.unlock_body(); }
-};
-
-//----------------------------------------//
-
-class SpyProcess
-{
-private:
-	short spy_recno;
-
-public:
-	SpyProcess(short recno) { spy_recno = recno; };
-
-	//------- AI functions -------//
-
-	void	process_ai();
-	void	think_town_spy();
-	void	think_firm_spy();
-	int 	think_mobile_spy();
-
-	int 	think_bribe();
-	int 	think_assassinate();
-	int	think_reward();
-
-	int 	think_mobile_spy_new_action();
-	int 	add_assign_spy_action(int destXLoc, int destYLoc, int cloakedNationRecno);
-
-private:
-	Spy *ptr() { return spy_array[spy_recno]; };
-
-};
 
 //----------------------------------------//
 
