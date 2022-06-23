@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Seven Kingdoms
+GenericName=Strategy Game
+Comment=Seven Kingdoms: Ancient Adversaries
+Type=Application
+Exec=7kaa
+Icon=7kaa
+Categories=Game;StrategyGame;
+Keywords=game;strategy;ancient;kingdoms;real-time;trade;diplomacy;espionage;

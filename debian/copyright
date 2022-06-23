@@ -1,0 +1,80 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: 7kaa
+Upstream-Contact: Jesse Allen <the3dfxdude@gmail.com>
+Source: https://github.com/the3dfxdude/7kaa
+
+Files: *
+Copyright: 1997,1998, Enlight Software Ltd.
+           2010-2020, Jesse Allen
+           2010,      Unavowed <unavowed@vexillium.org>
+           2013-2014, Richard Dijk <microvirus.multiplying@gmail.com>
+License: GPL-2+
+
+Files: debian/*
+Copyright: 2022 Lenny Andreu <landreuhs.29@gmail.com>
+           2010, 2015-2020, Bertrand Marc <bmarc@debian.org>
+           2020, Jelmer Vernooĳ <jelmer@jelmer.uk>
+           2011, Miriam Ruiz <little_miry@yahoo.es>
+           2013, Barry deFreese <bdefreese@debian.org>
+           2013, Markus Koschany <apo@gambaru.de>
+License: GPL-3.0+
+
+Files: data/MUSIC/*
+Copyright: 1997 Bjorn Lynne
+           1997 Enlight Software Ltd.
+Licence: UNLICENCED
+
+License: GPL-3.0+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+  .
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  .
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  .
+  On Debian systems, the full text of the GNU General Public
+  License version 2 can be found in the file "/usr/share/common-licenses/GPL-2".
+
+Licence: UNLICENCED
+  Permission is granted to anyone to use these media files with
+  Seven Kingdoms: Ancient Adversaries from Enlight Ltd., and to redistribute
+  copies of these media files freely, subject to the following restrictions:
+
+  1. The redistributed media files are a complete set, unmodified, and correctly
+    represented for use with Seven Kingdoms.
+
+  2. The authors are acknowledged with any distribution.
+
+  3. This notice may not be removed or altered in any distribution.
+
+  The authors do not grant any additional right outside of the use with
+  Seven Kingdoms. Any re-recording or derivative works based on the provided
+  soundtracks is subject to any applicable copyright laws.
+
+  These media files are provided 'as-is', without any express or implied
+  warranty. In no event will the authors be held liable for any damages
+  arising from use of these media files.

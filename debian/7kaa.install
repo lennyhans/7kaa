@@ -1,0 +1,4 @@
+debian/7kaa.desktop usr/share/applications/
+debian/7kaa.png /usr/share/pixmaps/
+debian/7kaa.xpm /usr/share/pixmaps/
+usr/games/
