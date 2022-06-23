@@ -1,0 +1,48 @@
+FROM buildpack-deps:bullseye as music
+WORKDIR /app
+RUN wget https://www.7kfans.com/downloads/7kaa-music-2.15.zip
+RUN unzip 7kaa-music-2.15.zip
+
+FROM buildpack-deps:bullseye as build
+# MAINTAINER NAME EMAIL
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_PRIORITY critical
+ENV DEBCONF_NOWARNINGS yes
+
+WORKDIR /app/dest
+
+RUN apt-get -y update && \
+  apt-get -y upgrade && \
+  apt-get install --no-install-recommends -yV build-essential dpatch fakeroot devscripts equivs lintian quilt autoconf-archive  \
+  && apt-get install --no-install-recommends -yV \
+  libsdl2-dev \
+  libenet-dev \
+  libopenal-dev \
+  libcurl4-gnutls-dev \
+  gettext \
+  autoconf \
+  pkg-config \
+  bash \
+  autopoint \
+  gcc \
+  uuid-dev \
+  bash \
+  && apt-get clean \
+  && rm -rf /tmp/* /var/tmp/*
+
+COPY . ./
+COPY --from=music /app/7kaa-music/MUSIC ./MUSIC
+COPY --from=music /app/7kaa-music/COPYING-Music.txt ./MUSIC/
+
+RUN debian/rules clean
+
+RUN dpkg-buildpackage -b -uc -us 
+
+FROM buildpack-deps:bullseye as pack
+
+WORKDIR /app
+
+COPY --from=build /app/*.deb ./
+
