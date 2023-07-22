@@ -1,0 +1,167 @@
+FROM bash:5.2.15-alpine3.16 AS libcurl
+# Download libcurl
+# wget https://curl.se/windows/latest.cgi?p=win64-mingw.zip
+WORKDIR /app
+RUN wget https://curl.se/windows/latest.cgi?p=win32-mingw.zip -O curl.zip
+RUN unzip curl.zip && rm curl.zip && mv curl* curl
+
+FROM bash:5.2.15-alpine3.16 AS libiconv
+# Download libiconv
+# wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.17.tar.gz
+WORKDIR /app
+RUN wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.17.tar.gz -O lib.tar.gz
+RUN tar -xf lib.tar.gz && rm lib.tar.gz && mv libiconv* libiconv
+
+
+FROM bash:5.2.15-alpine3.16 AS libopenal
+# Download openal
+WORKDIR /app
+RUN wget https://www.openal-soft.org/openal-binaries/openal-soft-1.22.2-bin.zip -O openal.zip
+RUN unzip openal.zip && rm openal.zip && mv openal* openal
+
+FROM bash:5.2.15-alpine3.16 AS libsdl
+# Download SDL2
+# wget https://github.com/libsdl-org/SDL/releases/download/release-2.0.8/SDL2-devel-2.0.8-mingw.tar.gz
+WORKDIR /app
+RUN wget https://github.com/libsdl-org/SDL/releases/download/release-2.0.8/SDL2-devel-2.0.8-mingw.tar.gz -O sdl.tar.gz
+RUN tar -xf sdl.tar.gz && rm sdl.tar.gz && mv SDL* sdl
+
+FROM bash:5.2.15-alpine3.16 AS libenet
+# Download enet
+WORKDIR /app
+RUN wget http://enet.bespin.org/download/enet-1.3.17.tar.gz -O lib.tar.gz
+RUN tar -xf lib.tar.gz && rm lib.tar.gz && mv enet* enet
+
+
+# FROM debian:bullseye-slim
+FROM buildpack-deps:bullseye
+# MAINTAINER NAME EMAIL
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_PRIORITY critical
+ENV DEBCONF_NOWARNINGS yes
+WORKDIR /app
+ENV BASE_DIR=/app/build
+
+RUN apt-get -y update && \
+  # apt-get -y upgrade && \
+  apt-get install -y build-essential  && \
+  apt-get install -y \
+ # libsdl2-dev \
+  # libenet-dev \
+#  libopenal-dev \
+  #libcurl-dev \
+#  libcurl4-openssl-dev \
+  gettext \
+  #autoconf \
+  autoconf-archive \
+  pkg-config \
+  bash \
+  autopoint \
+  #make \
+  binutils \
+  mingw-w64 \
+  libc6-dev-i386
+#gcc
+
+#RUN apt-get install -y libsdl2-dev \
+#   libenet-dev \
+#  libopenal-dev \
+#  #libcurl-dev \
+#  libcurl4-openssl-dev
+
+
+RUN addgroup --gid 1000 devcontainer
+RUN adduser --disabled-password --gecos '' --uid 1000 --gid 1000 devcontainer
+
+COPY missing .
+COPY . ./
+
+ENV HOST=i686-w64-mingw32
+ENV HOST_OPT=--host=$HOST
+ENV STRIP=${HOST}-strip
+ENV BUILD_BASE_PATH=/usr/i686-w64-mingw32
+
+# Extract dlls
+COPY --from=libcurl /app/curl/lib/* $BUILD_BASE_PATH/lib/
+COPY --from=libcurl /app/curl/include/ $BUILD_BASE_PATH/include/
+
+COPY --from=libopenal /app/openal/libs/Win32/* $BUILD_BASE_PATH/lib/
+COPY --from=libopenal /app/openal/include/AL $BUILD_BASE_PATH/include/AL
+
+COPY --from=libsdl /app/sdl/i686-w64-mingw32/lib/* $BUILD_BASE_PATH/lib/
+COPY --from=libsdl /app/sdl/i686-w64-mingw32/bin/* $BUILD_BASE_PATH/bin/
+COPY --from=libsdl /app/sdl/i686-w64-mingw32/include/SDL2 $BUILD_BASE_PATH/include/SDL2
+COPY --from=libsdl /app/sdl/i686-w64-mingw32/share/aclocal/* m4/
+
+# Build static lib
+COPY --from=libenet /app/enet lib-src/enet
+COPY --from=libenet /app/enet/include include
+
+# Build static lib
+COPY --from=libiconv /app/libiconv lib-src/libiconv
+#COPY --from=libiconv /app/libiconv/include include
+
+RUN chown devcontainer:devcontainer -R .
+USER devcontainer
+ENV PATH=/usr/local/bin:/usr/bin:/bin:$BUILD_BASE_PATH/bin:
+
+
+# BUILD ENET
+#RUN ./lib/enet/configure.ac
+RUN (cd lib-src/enet && autoreconf -vfi)
+RUN (cd lib-src/enet && ./configure $HOST_OPT --prefix=$(pwd)/build)
+RUN (cd lib-src/enet && make -j$(nproc) pkgdatadir="" localedir=locale)
+RUN (cd lib-src/enet && make install DESTDIR="" bindir="" docdir="" pkgdatadir=/ localedir=/locale)
+RUN cp lib-src/enet/build/lib/libenet.a lib/
+#RUN cp lib-src/enet/build/include include/
+
+RUN (cd lib-src/libiconv && ./configure $HOST_OPT --prefix=$(pwd)/build)
+RUN (cd lib-src/libiconv && make -j$(nproc))
+RUN (cd lib-src/libiconv && make install)
+RUN cp lib-src/libiconv/build/lib/* lib/
+RUN cp lib-src/libiconv/build/include/* include/
+# ENET_LIBS=-l$(pwd)/lib/ ENET_CFLAGS=-L$(pwd)/lib/enet/include/enet
+ENV CFLAGS=-I/usr/include
+ENV LDFLAGS=-Llib/
+#ENV TOOLCHAIN=/usr
+#ENV CC=$TOOLCHAIN/bin/i686-w64-mingw32-gcc
+#ENV CXX=$TOOLCHAIN/bin/i686-w64-mingw32-g++
+#ENV AR=$TOOLCHAIN/bin/i686-w64-mingw32-ar
+#ENV LD=$TOOLCHAIN/bin/i686-w64-mingw32-ld
+
+RUN /app/autogen.sh
+
+#RUN ls -l lib
+#RUN ls -l lib/SDL2
+#RUN ls -l include/*
+#RUN ls /usr/x86_64-w64-mingw32/lib/
+#RUN ls /usr/i686-w64-mingw32/lib/
+#RUN ls -la /usr/lib/x86_64-linux-gnu
+RUN ./configure \
+  #--prefix=/app/build \
+  #--bindir=games \
+  #--datarootdir=share \
+  #--datarootdir=share/games \
+  #--mandir=share/man \
+  #--infodir=share/info \
+  --disable-silent-rules $HOST_OPT \
+CFLAGS="$CFLAGS" \
+LDFLAGS="$LDFLAGS -L$(pwd)/lib -I/usr/i686-w64-mingw32/include -L/usr/i686-w64-mingw32/lib"  \
+#OPENAL_LIBS="-lOpenAL32" \
+OPENAL_CFLAGS="-L/usr/i686-w64-mingw32/lib -I/usr/i686-w64-mingw32/include" \
+#ENET_LIBS="-lenet" \ 
+ENET_CFLAGS="-L$(pwd)/lib -Iinclude" \
+SDL_LIBS="-lmingw32 -mwindows -lSDL2main -lSDL2" \
+SDL_CFLAGS="-L/usr/i686-w64-mingw32/lib -I/usr/i686-w64-mingw32/include/SDL2" \
+CURL_CFLAGS="-L/usr/i686-w64-mingw32/lib"
+#CURL_LIBS="-lcurl"
+# ; cat config.log)
+RUN make -j$(nproc)
+# Where NAME is your full name and EMAIL is your email address.
+#RUN make -j$(nproc) pkgdatadir="" localedir=locale
+#RUN make install DESTDIR=`pwd`/dest bindir=/ docdir=/ pkgdatadir=/ localedir=/locale
+#RUN $STRIP dest/7kaa.exe
+
+#ENTRYPOINT ['/bin/bash']
