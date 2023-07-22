@@ -692,6 +692,7 @@ void Unit::deinit_unit_mode()
 
 		FirmMonster* firmMonster = (FirmMonster*) firm_array[unit_mode_para];
 
+		err_when( !firmMonster );
 		err_when( firmMonster->firm_id != FIRM_MONSTER );
 
 		firmMonster->reduce_defender_count(rank_id);
@@ -2444,8 +2445,8 @@ void Unit::del_team_member(int unitRecno)
 // are any units with hit_points <= 0, delete them.
 //
 // Those unit may just be killed, so soon that the Unit's set_die()
-// function hsa been called yet. validate_team() function must
-// be called before all issunig any new team actions.
+// function hasn't been called yet. The validate_team() function must
+// be called before issuing any new team actions.
 //
 void Unit::validate_team()
 {

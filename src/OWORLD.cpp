@@ -43,6 +43,7 @@
 #include <OSERES.h>
 #include <OREMOTE.h>
 #include <ONEWS.h>
+#include <ConfigAdv.h>
 
 
 //------------ Define static class variables ------------//
@@ -172,7 +173,8 @@ void World::process()
 {
 	//-------- process wall ----------//
 
-	form_world_wall();
+	if( config_adv.wall_building_allowed )
+		form_world_wall();
 
 	//-------- process fire -----------//
 
@@ -2174,6 +2176,7 @@ uint8_t World::get_region_id(int xLoc, int yLoc)
 
 // ####### begin Gilbert 25/7 #########//
 // return true if any location adjacent to (x,y) is on a particular region
+// jesse May 7, 2023: this used to be used in Nation::ai_build_harbor but now replaced with is_harbor_region()
 int World::is_adjacent_region(int x, int y, int regionId)
 {
 	if( y > 0 )
@@ -2219,3 +2222,29 @@ int World::is_adjacent_region(int x, int y, int regionId)
 	return 0;
 }
 // ####### end Gilbert 25/7 #########//
+
+
+//--------- Begin of function World::is_harbor_region --------//
+//
+// return true selected build location is in the designated regions
+int World::is_harbor_region(int xLoc, int yLoc, int landRegionId, int seaRegionId)
+{
+	if( xLoc+2 >= max_x_loc || yLoc+2 >= max_y_loc )
+		return 0;
+
+        int x,y;
+	for( y = 0; y < 3; y++ )
+	{
+		for( x = 0; x < 3; x++ )
+		{
+			int regionId = get_region_id( xLoc+x, yLoc+y );
+			if( regionId != landRegionId &&
+				regionId != seaRegionId )
+			{
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+//----------- End of function World::is_harbor_region --------//

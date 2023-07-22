@@ -46,6 +46,11 @@ public:
 
 	// firm settings
 	char			firm_mobilize_civilian_aggressive;
+	char			firm_migrate_stricter_rules;
+
+	// bug fix settings
+	char			fix_recruit_dec_loyalty;
+	char			fix_town_unjob_worker;
 
 	// locale settings
 	char			locale[LOCALE_LEN+1];
@@ -73,10 +78,12 @@ public:
 	// town settings
 	int			town_ai_emerge_nation_pop_limit;
 	int			town_ai_emerge_town_pop_limit;
+	char			town_migration;
 	char			town_loyalty_qol;
 
 	// unit settings
 	char			unit_ai_team_help;
+	char			unit_finish_attack_move;
 	char			unit_loyalty_require_local_leader;
 	char			unit_spy_fixed_target_loyalty;
 	char			unit_target_move_range_cycle;
@@ -90,6 +97,9 @@ public:
 
 	int			vga_window_width;
 	int			vga_window_height;
+
+	// wall settings
+	char			wall_building_allowed;
 
 public:
 	ConfigAdv();

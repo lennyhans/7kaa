@@ -228,6 +228,10 @@ err_out:
 void ConfigAdv::reset()
 {
 	firm_mobilize_civilian_aggressive = 0;
+	firm_migrate_stricter_rules = 1;
+
+	fix_recruit_dec_loyalty = 1;
+	fix_town_unjob_worker = 1;
 
 	locale[0] = 0;
 
@@ -249,9 +253,11 @@ void ConfigAdv::reset()
 
 	town_ai_emerge_nation_pop_limit = 60 * MAX_NATION;
 	town_ai_emerge_town_pop_limit = 1000;
+	town_migration = 1;
 	town_loyalty_qol = 1;
 
 	unit_ai_team_help = 1;
+	unit_finish_attack_move = 1;
 	unit_loyalty_require_local_leader = 1;
 	unit_spy_fixed_target_loyalty = 0;
 	unit_target_move_range_cycle = 0;
@@ -264,6 +270,8 @@ void ConfigAdv::reset()
 
 	vga_window_width = 0;
 	vga_window_height = 0;
+
+	wall_building_allowed = 0;
 
 	// after applying defaults, checksum is not required
 	checksum = 0;
@@ -288,6 +296,24 @@ int ConfigAdv::set(char *name, char *value)
 	else if( !strcmp(name, "firm_mobilize_civilian_aggressive") )
 	{
 		if( !read_bool(value, &firm_mobilize_civilian_aggressive) )
+			return 0;
+		update_check_sum(name, value);
+	}
+	else if( !strcmp(name, "firm_migrate_stricter_rules") )
+	{
+		if( !read_bool(value, &firm_migrate_stricter_rules) )
+			return 0;
+		update_check_sum(name, value);
+	}
+	else if( !strcmp(name, "fix_recruit_dec_loyalty") )
+	{
+		if( !read_bool(value, &fix_recruit_dec_loyalty) )
+			return 0;
+		update_check_sum(name, value);
+	}
+	else if( !strcmp(name, "fix_town_unjob_worker") )
+	{
+		if( !read_bool(value, &fix_town_unjob_worker) )
 			return 0;
 		update_check_sum(name, value);
 	}
@@ -386,6 +412,12 @@ int ConfigAdv::set(char *name, char *value)
 			return 0;
 		update_check_sum(name, value);
 	}
+	else if( !strcmp(name, "town_migration") )
+	{
+		if( !read_bool(value, &town_migration) )
+			return 0;
+		update_check_sum(name, value);
+	}
 	else if( !strcmp(name, "town_loyalty_qol") )
 	{
 		if( !read_bool(value, &town_loyalty_qol) )
@@ -395,6 +427,12 @@ int ConfigAdv::set(char *name, char *value)
 	else if( !strcmp(name, "unit_ai_team_help") )
 	{
 		if( !read_bool(value, &unit_ai_team_help) )
+			return 0;
+		update_check_sum(name, value);
+	}
+	else if( !strcmp(name, "unit_finish_attack_move") )
+	{
+		if( !read_bool(value, &unit_finish_attack_move) )
 			return 0;
 		update_check_sum(name, value);
 	}
@@ -449,6 +487,11 @@ int ConfigAdv::set(char *name, char *value)
 	else if( !strcmp(name, "vga_window_width") )
 	{
 		if( !read_int(value, &vga_window_width) )
+			return 0;
+	}
+	else if( !strcmp(name, "wall_building_allowed") )
+	{
+		if( !read_bool(value, &wall_building_allowed) )
 			return 0;
 	}
 	else

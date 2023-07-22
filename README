@@ -1,7 +1,7 @@
 Seven Kingdoms: Ancient Adversaries
 -----------------------------------
 
-Release version 2.15.5
+Release version 2.15.6
 Project website: www.7kfans.com
 
 This is a GPL release of the Seven Kingdoms: Ancient Adversaries thanks to
@@ -11,33 +11,8 @@ details of the license. We are indebted to Enlight for making the 7kfans
 project possible and giving a new chance to build a community for fans
 of the game.
 
-Summary of changes from 2.15.4 to 2.15.5
+Summary of changes from 2.15.5 to 2.15.6
 ---------
- * Fixed UI regression in setting auto taxing
- * Improved stability of starting a multiplayer game
- * Reduced load of crc checking in multiplayer
- * Improved formatting of the game manual
- * Fixed wrongly applied leadership gain when the leader was not in range
- * Fixed more crashes
- * Improved AI's handling of combat mission at sea
- * Reset powered attack type when line-of-sight is broken
- * Improved idle-attack detection when there are many units in the game
- * Fixed incorrect pathing when unit is in a building or on a ship
- * Do not cycle powered attack when the target moves, correcting the usage behavior of Egyptian fire arrows
- * Added Esperanto translation
- * Added support for copying trade routes for trade ships
- * Added a copy trade route button when hovering the mouse over units in the trade report
- * More trade report improvements
- * Added a request builder button when a building is selected
- * Set the default for mobilizing civilians to non-aggressive mode to prevent inadvertantly sending them to their death
- * Corrected building linkage when buildings are densely placed
- * Corrected AI related bugs
- * Improved the AI's ability to send help to an ally
- * Improved Fryhtan AI to help an Ordo under attack
- * Fixed crashes related to bullets
- * Fixed spy vision of a spy on a ship
- * Fixed spy vision of a spy assigned to building for construction or repair
- * Added a credits screen
 
 
 System Requirements
@@ -55,6 +30,15 @@ Supported architectures for multiplayer
 Building the game
 ---------
 
+The build process is based on autotools, as this easily runs on all typical
+Windows, Linux and Unix-like systems with minimal requirements. Below are the
+additional things that you are expected to provide in your build environment.
+
+For building for Windows, the environment we use is mingw-w64 with a cross-
+compiler under Linux. The same mingw-w64 is available from MSYS native to
+Windows. There are other similar environments, but we cannot help people
+configure their system -- you are expected to know how to use your tools.
+
 Required dependencies
 * GCC 4.6+ C++11 compliant compiler
 * SDL 2.0.8
@@ -62,13 +46,20 @@ Required dependencies
 * OpenAL-soft or equivalent driver
 
 Optional dependencies
-* Autoconf 2.65 (when using git snapshot)
 * libcurl for full 7kfans multiplayer integration (website requires TLS1.2)
 * gettext 0.19
 * Game music: 7kaa-music-2.15
   -> Packagers: Copy music into program data folder or PACKAGE_DATA_DIR
   -> Make sure the file names are in upper-case
 * NSIS for building a Windows installer
+* TeX Live with latexmk, fontaxes, accanthis, universalis, and yfonts for
+  generating the game manual in pdf
+
+Autoconf 2.65+ and autoconf-archive is required when generating a configure
+script. You do not need to generate a configure script when you are building
+an officially released version of the game as it is already provided in the
+source archive. Compiling and using git snapshots for general use is dis-
+couraged and instead use the latest officially released version of the game.
 
 
 Running locally from source build
