@@ -1,9 +1,13 @@
 CONTAINER_NAME=7kaa
-CONTAINER_VERSION=0.1.0
+CONTAINER_VERSION=dev
 CONTAINER=${CONTAINER_NAME}:${CONTAINER_VERSION}
-BIN_PATH=src/7kaa
 
-sudo docker build . -t ${CONTAINER} -f debian-bullseye.dockerfile && \
-  sudo docker cp \
-    $(sudo docker create --rm $CONTAINER):/app/${BIN_PATH} \
-  .
+FILE=$1 || dockerfile
+echo $FILE
+# CONTAINER_TAG_NAME=$(echo $FILE | awk '{print $2$3}' FS='.')
+docker build . -t ${CONTAINER} -f $FILE && \
+docker cp \
+  $(docker create --rm $CONTAINER):/app/ \
+. && \
+#rm -rf app/dest/
+ls app/dest

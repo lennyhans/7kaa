@@ -1,4 +1,5 @@
-FROM debian:bullseye-slim
+# FROM debian:bullseye-slim
+FROM buildpack-deps:bullseye
 # MAINTAINER NAME EMAIL
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -10,8 +11,8 @@ ENV BASE_DIR=/app/build
 WORKDIR /app
 
 RUN apt-get -y update && \
-apt-get -y upgrade && \
-  apt-get install -y build-essential  && \
+  # apt-get -y upgrade && \
+  # apt-get install -y build-essential  && \
   apt-get install -y \
   libsdl2-dev \
   libenet-dev \
@@ -19,16 +20,24 @@ apt-get -y upgrade && \
   #libcurl-dev \
   libcurl4-openssl-dev \
   gettext \
-  autoconf \
+  #autoconf \
+  autoconf-archive \
   pkg-config \
   bash \
   autopoint \
-  make \
-  binutils \
-  gcc
+  #make \
+  binutils 
+#gcc
+
+RUN addgroup --gid 1000 devcontainer
+RUN adduser --disabled-password --gecos '' --uid 1000 --gid 1000 devcontainer
 
 COPY missing .
 COPY . ./
+
+RUN chown devcontainer:devcontainer -R .
+USER devcontainer
+ENV PATH=/usr/local/bin:/usr/bin:/bin:
 
 RUN /app/autogen.sh
 RUN ./configure \
@@ -39,7 +48,8 @@ RUN ./configure \
   #--mandir=share/man \
   #--infodir=share/info \
   --disable-silent-rules 
-  #CFLAGS="$(CFLAGS)" \
-  #LDFLAGS="$(LDFLAGS)"
-RUN make -j$(nproc)
+#CFLAGS="$(CFLAGS)" \
+#LDFLAGS="$(LDFLAGS)"
+# RUN make -j$(nproc)
 # Where NAME is your full name and EMAIL is your email address.
+RUN /usr/bin/make -j$(nproc)
